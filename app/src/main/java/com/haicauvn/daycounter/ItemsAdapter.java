@@ -8,7 +8,13 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ItemsAdapter extends BaseAdapter {
     Context myContext;
@@ -42,7 +48,11 @@ public class ItemsAdapter extends BaseAdapter {
         TextView txtName = (TextView)view.findViewById(R.id.NameText);
         txtName.setText(myList.get(i).getName());
         TextView txtNum = (TextView)view.findViewById(R.id.NumberText);
-        txtNum.setText(myList.get(i).getDate().toString());
+//        SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
+//        String stringDate= DateFor.format(myList.get(i).getDate());
+        long diff = (new Date()).getTime()- myList.get(i).getDate().getTime();
+        diff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+        txtNum.setText(Long.toString(diff) );
         return view;
     }
 }

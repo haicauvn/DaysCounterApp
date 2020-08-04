@@ -1,20 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="90dp"
+    android:background="@drawable/bgitem"
     android:orientation="horizontal">
+
     <TextView
-        android:text="NameText"
+        android:layout_marginLeft="10dp"
         android:id="@+id/NameText"
         android:layout_width="250dp"
-        android:textSize="32dp"
         android:layout_height="wrap_content"
-        />
-    <TextView
-        android:id="@+id/NumberText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0"
-        android:textColor="@android:color/holo_orange_dark"
-        android:textSize="32dp" />
+        android:text="NameText"
+        android:textSize="22dp" />
+
+    <LinearLayout
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:orientation="vertical"
+        android:textAlignment="center">
+
+        <TextView
+            android:textAlignment="center"
+            android:id="@+id/NumberText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textSize="32dp" />
+        <TextView
+            android:textAlignment="center"
+            android:text="days"
+            android:textSize="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
 </LinearLayout>

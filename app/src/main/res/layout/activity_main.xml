@@ -8,6 +8,7 @@
 
     <TextView
         android:id="@+id/DateText"
+        style="@style/MyStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -20,8 +21,9 @@
         android:id="@+id/ListView"
         android:layout_width="match_parent"
         android:layout_height="500dp"
+        android:layout_margin="8dp"
         android:layout_marginTop="32dp"
-        android:background="@android:drawable/divider_horizontal_dark"
+        android:background="?android:attr/panelBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/DateText" />
