@@ -45,6 +45,18 @@ public class MainActivity extends AppCompatActivity {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        if(getIntent().getStringExtra("nameitem")!=null){
+            String titletemp = getIntent().getStringExtra("nameitem").toString();
+            String datetemp = getIntent().getStringExtra("dateitem").toString();
+            String destemp = getIntent().getStringExtra("desitem").toString();
+            Date dateTemp = new Date();
+            try {
+                dateTemp=new SimpleDateFormat("E, MMM dd yyyy").parse(datetemp);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            listItem.add(new Item(titletemp,dateTemp,destemp));
+        }
         listItem.add(new Item("Nop", date1));
         listItem.add(new Item("Go home and left the game", date2));
         listItem.add(new Item("Tet", date3));

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.KeyEvent;
@@ -19,7 +20,10 @@ import android.widget.TextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class AddNewActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     Button doneButton;
@@ -34,29 +38,37 @@ public class AddNewActivity extends AppCompatActivity implements DatePickerDialo
         dateInput = (TextInputEditText) findViewById(R.id.dateEditText);
         //dateInputLayout = (TextInputLayout) findViewById(R.id.dateEditLayout);
 
-        //dateInput.setInputType(InputType.TYPE_NULL);
-        dateInput.setText("Aug");
+        SimpleDateFormat DateFor = new SimpleDateFormat("E, MMM dd yyyy");
+        dateInput.setText(DateFor.format(new Date()).toString());
         dateInput.setShowSoftInputOnFocus(false);
-//        dateInput.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View view, MotionEvent motionEvent) {
-//                showDatePickerDialog();
-//                return true;
-//            }
-//        });
-        dateInput.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                showDatePickerDialog();
-            }
-        });
         dateInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDatePickerDialog();
+                hideSoftKeyboard(AddNewActivity.this);
+            }
+        });
+        doneButton = (Button) findViewById(R.id.btnAddNew);
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!inputTitle.getText().toString().equals("")){
+                    Intent I = new Intent(AddNewActivity.this, MainActivity.class);
+                    I.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    final String getNameItem = inputTitle.getText().toString();
+                    final String getDateItem = dateInput.getText().toString();
+                    final String getDesciption = inputDes.getText().toString();
+
+                    I.putExtra("nameitem", getNameItem);
+                    I.putExtra("dateitem", getDateItem);
+                    I.putExtra("desitem", getDesciption);
+                    startActivity(I);
+                }
             }
         });
     }
+
+
     public static void hideSoftKeyboard(Activity activity) {
         InputMethodManager inputMethodManager =
                 (InputMethodManager) activity.getSystemService(
@@ -76,7 +88,17 @@ public class AddNewActivity extends AppCompatActivity implements DatePickerDialo
     }
     @Override
     public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-        String date = Integer.toString(i2) +" "+Integer.toString(i1) +" "+ Integer.toString(i);
-        dateInput.setText(date);
+        String stringDate = Integer.toString(i2) +"/"+Integer.toString(i1+1) +"/"+ Integer.toString(i);
+        Date date = new Date();
+        try {
+            date = new SimpleDateFormat("dd/MM/yyyy").parse(stringDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat DateFor = new SimpleDateFormat("E, MMM dd yyyy");
+//        SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
+        stringDate= DateFor.format(date);
+        dateInput.setText(stringDate);
+//        dateInput.setText(date.toString());
     }
 }
