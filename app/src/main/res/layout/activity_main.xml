@@ -28,4 +28,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/DateText" />
 
+    <Button
+        android:id="@+id/btnAddNew"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/bgadd"
+        android:text="+"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

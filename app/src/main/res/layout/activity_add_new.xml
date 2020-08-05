@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddNewActivity">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/bgitem"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="8dp"
+            android:hint="Event Title"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/titleEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailSubject"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dateEditLayout"
+            android:layout_width="match_parent"
+            android:enabled="false"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:inputType="none"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleEditText">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/dateEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailSubject"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linnerLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="vertical"
+        android:background="@drawable/bgitem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout"
+        android:gravity="center">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:hint="Desciption"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/desEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnAddNew"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/bgadd"
+        android:text="✓"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
