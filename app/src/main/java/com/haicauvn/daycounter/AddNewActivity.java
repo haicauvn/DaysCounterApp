@@ -1,5 +1,6 @@
 package com.haicauvn.daycounter;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -33,6 +34,7 @@ public class AddNewActivity extends AppCompatActivity implements DatePickerDialo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new);
+        setTitle("Add Event");
         inputTitle = (TextInputEditText) findViewById(R.id.titleEditText);
         inputDes = (TextInputEditText) findViewById(R.id.desEditText);
         dateInput = (TextInputEditText) findViewById(R.id.dateEditText);
@@ -54,7 +56,7 @@ public class AddNewActivity extends AppCompatActivity implements DatePickerDialo
             public void onClick(View view) {
                 if(!inputTitle.getText().toString().equals("")){
                     Intent I = new Intent(AddNewActivity.this, MainActivity.class);
-                    I.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    //I.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     final String getNameItem = inputTitle.getText().toString();
                     final String getDateItem = dateInput.getText().toString();
                     final String getDesciption = inputDes.getText().toString();
