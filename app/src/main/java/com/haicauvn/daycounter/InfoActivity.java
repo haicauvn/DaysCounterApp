@@ -67,6 +67,8 @@ public class InfoActivity extends AppCompatActivity {
             });
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
+        }else if(id==R.id.editMenu){
+            editAction();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -75,6 +77,18 @@ public class InfoActivity extends AppCompatActivity {
         Intent I = new Intent(InfoActivity.this, MainActivity.class);
         I.putExtra("iditem", getIntent().getStringExtra("iditem"));
         I.putExtra("action", "delete");
+        I.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(I);
+    }
+    private void editAction(){
+        Intent I = new Intent(InfoActivity.this, EditActivity.class);
+        I.putExtra("iditem", getIntent().getStringExtra("iditem"));
+        I.putExtra("nameitem", getIntent().getStringExtra("nameitem"));
+        I.putExtra("dateitem", getIntent().getStringExtra("dateitem"));
+        I.putExtra("desitem", getIntent().getStringExtra("desitem"));
+        I.putExtra("numitem", getIntent().getStringExtra("numitem"));
+        I.putExtra("action", "edit");
+        I.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(I);
     }
 }

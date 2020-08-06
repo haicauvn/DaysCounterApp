@@ -3,6 +3,7 @@ package com.haicauvn.daycounter;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
@@ -13,8 +14,9 @@ public class Item  implements Parcelable {
     private String Description;
 
     public Item(String name, Date date, String description) {
-        Random rd = new Random();
-        this.id = name.toLowerCase().substring(0,5) + Integer.toString(rd.nextInt());
+        Date datetemp = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyddMMHHmmss");
+        this.id = formatter.format(date);
         this.name = name;
         this.date = date;
         Description = description;

@@ -1,22 +1,16 @@
 package com.haicauvn.daycounter;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputType;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -26,52 +20,54 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class AddNewActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class EditActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+
     Button doneButton;
     TextInputEditText inputTitle, inputDes, dateInput;
     TextInputLayout dateInputLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_new);
-        setTitle("Add Event");
+        setContentView(R.layout.activity_edit);
+        setTitle("Edit Event");
         inputTitle = (TextInputEditText) findViewById(R.id.titleEditText);
         inputDes = (TextInputEditText) findViewById(R.id.desEditText);
         dateInput = (TextInputEditText) findViewById(R.id.dateEditText);
-        //dateInputLayout = (TextInputLayout) findViewById(R.id.dateEditLayout);
-
-        SimpleDateFormat DateFor = new SimpleDateFormat("E, MMM dd yyyy");
-        dateInput.setText(DateFor.format(new Date()).toString());
+        inputTitle.setText(getIntent().getStringExtra("nameitem"));
+        dateInput.setText(getIntent().getStringExtra("dateitem"));
         dateInput.setShowSoftInputOnFocus(false);
         dateInput.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDatePickerDialog();
-                hideSoftKeyboard(AddNewActivity.this);
+                hideSoftKeyboard(EditActivity.this);
             }
         });
-        doneButton = (Button) findViewById(R.id.btnAddNew);
+
+        inputDes.setText(getIntent().getStringExtra("desitem"));
+
+        //done Button
+        doneButton =(Button) findViewById(R.id.btnDoneEdit);
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!inputTitle.getText().toString().equals("")){
-                    Intent I = new Intent(AddNewActivity.this, MainActivity.class);
-                    //I.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    final String getNameItem = inputTitle.getText().toString();
-                    final String getDateItem = dateInput.getText().toString();
-                    final String getDesciption = inputDes.getText().toString();
-
-                    I.putExtra("nameitem", getNameItem);
-                    I.putExtra("dateitem", getDateItem);
-                    I.putExtra("desitem", getDesciption);
-                    I.putExtra("action","add");
-                    I.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(I);
-                }
+                Toast.makeText(EditActivity.this, "Done", Toast.LENGTH_SHORT).show();
+                Intent I = new Intent(EditActivity.this, MainActivity.class);
+                //I.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                final String getNameItem = inputTitle.getText().toString();
+                final String getDateItem = dateInput.getText().toString();
+                final String getDesciption = inputDes.getText().toString();
+                I.putExtra("iditem", getIntent().getStringExtra("iditem"));
+                I.putExtra("numitem", getIntent().getStringExtra("numitem"));
+                I.putExtra("nameitem", getNameItem);
+                I.putExtra("dateitem", getDateItem);
+                I.putExtra("desitem", getDesciption);
+                I.putExtra("action","edit");
+                I.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(I);
             }
         });
     }
-
 
     public static void hideSoftKeyboard(Activity activity) {
         InputMethodManager inputMethodManager =

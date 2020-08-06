@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     TextView DateText;
     ArrayList<Item> listItem;
     Button buttonAdd;
+    private static String action;
     private static final String LIST_ITEM = "LIST_ITEM";
 
     @Override
@@ -47,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         listView = (ListView)findViewById(R.id.ListView);
         listItem = new ArrayList<Item>();
+        if(savedInstanceState!=null){
+            listItem = savedInstanceState.getParcelableArrayList(LIST_ITEM);
+            DateText.setText("ok");
+        }
         String nop="04/08/2020";
         String home= "27/07/2020";
         String tet = "25/01/2020";
@@ -68,18 +73,8 @@ public class MainActivity extends AppCompatActivity {
 //            listItem.add(new Item("Nop", date1));
 //            listItem.add(new Item("Go home and left the game", date2));
 //            listItem.add(new Item("Tet", date3));
-        if(getIntent().getStringExtra("nameitem")!=null){
-            String titletemp = getIntent().getStringExtra("nameitem").toString();
-            String datetemp = getIntent().getStringExtra("dateitem").toString();
-            String destemp = getIntent().getStringExtra("desitem").toString();
-            Date dateTemp = new Date();
-            try {
-                dateTemp=new SimpleDateFormat("E, MMM dd yyyy").parse(datetemp);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            listItem.add(new Item(titletemp,dateTemp,destemp));
-        }
+        action = getIntent().getStringExtra("action");
+
         if(getIntent().getStringExtra("action")!=null){
             if(getIntent().getStringExtra("action").equals("delete")){
                 for(int i=0; i<listItem.size(); i++){
@@ -88,8 +83,29 @@ public class MainActivity extends AppCompatActivity {
                         break;
                    }
                 }
-            }else{
+            }else if(getIntent().getStringExtra("action").equals("add")){
+                addToList();
+            }else if(getIntent().getStringExtra("action").equals("edit")){
+                editItemToList();
+                Intent I = new Intent(MainActivity.this, InfoActivity.class);
+                I.putExtra("nameitem", getIntent().getStringExtra("nameitem"));
+                I.putExtra("desitem", getIntent().getStringExtra("desitem"));
+                I.putExtra("dateitem",getIntent().getStringExtra("dateitem"));
+                I.putExtra("iditem",getIntent().getStringExtra("iditem"));
 
+                //send number days
+                Date dateTemp = new Date();
+                try {
+                    dateTemp=new SimpleDateFormat("E, MMM dd yyyy").parse(getIntent().getStringExtra("dateitem"));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                long diff = (new Date()).getTime()- dateTemp.getTime();
+                diff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+                I.putExtra("numitem", Long.toString(diff));
+
+                //start
+                startActivity(I);
             }
         }
 
@@ -97,10 +113,7 @@ public class MainActivity extends AppCompatActivity {
         String stringDate= DateFor.format(new Date());
         DateText = (TextView) findViewById(R.id.DateText);
         DateText.setText("Today: " +stringDate);
-        if(savedInstanceState!=null){
-            listItem = savedInstanceState.getParcelableArrayList(LIST_ITEM);
-            DateText.setText("ok");
-        }
+
         ItemsAdapter adapter = new ItemsAdapter(
                 MainActivity.this,
                 R.layout.row,
@@ -175,7 +188,34 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         saveData();
     }
-
+    private void addToList(){
+        String titletemp = getIntent().getStringExtra("nameitem").toString();
+        String datetemp = getIntent().getStringExtra("dateitem").toString();
+        String destemp = getIntent().getStringExtra("desitem").toString();
+        Date dateTemp = new Date();
+        try {
+            dateTemp=new SimpleDateFormat("E, MMM dd yyyy").parse(datetemp);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        listItem.add(new Item(titletemp,dateTemp,destemp));
+    }
+    private void editItemToList(){
+        for(int i=0; i<listItem.size(); i++){
+            if(listItem.get(i).getId().equals(getIntent().getStringExtra("iditem"))){
+                listItem.get(i).setName(getIntent().getStringExtra("nameitem"));
+                listItem.get(i).setDescription(getIntent().getStringExtra("desitem"));
+                Date dateTemp = new Date();
+                try {
+                    dateTemp=new SimpleDateFormat("E, MMM dd yyyy").parse(getIntent().getStringExtra("dateitem"));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                listItem.get(i).setDate(dateTemp);
+                break;
+            }
+        }
+    }
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
