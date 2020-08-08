@@ -109,10 +109,10 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat DateFor = new SimpleDateFormat("EE dd/MM/yyyy");
         String stringDate= DateFor.format(new Date());
         DateText = (TextView) findViewById(R.id.DateText);
-        DateText.setText("Today: " +stringDate);
+        DateText.setText(stringDate);
 
         ItemsAdapter adapter = new ItemsAdapter(
                 MainActivity.this,
