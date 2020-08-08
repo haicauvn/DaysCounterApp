@@ -14,9 +14,8 @@ public class Item  implements Parcelable {
     private String Description;
 
     public Item(String name, Date date, String description) {
-        Date datetemp = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyddMMHHmmss");
-        this.id = formatter.format(date);
+        this.id = formatter.format(new Date());
         this.name = name;
         this.date = date;
         Description = description;
